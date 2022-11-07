@@ -41,12 +41,22 @@ List<Toy> catalog = (List<Toy>) request.getAttribute("catalog");
                 <%
                 for(Toy toy: catalog) {
                 %>
+                    <form action="./cart" method="POST">
                     <tr>
 	                    <td><%= toy.getId() %></td>
 	                    <td><%= toy.getName() %></td>
 	                    <td><%= toy.getDescription() %></td>
 	                    <td><%= toy.getPrice() %></td>
+	                    <td>
+	                       
+	                           <input type="hidden" name="id" value="<%= toy.getId() %>">
+	                           <input type="hidden" name="name" value="<%= toy.getName() %>">
+	                           <input type="hidden" name="description" value="<%= toy.getDescription() %>">
+	                           <input type="hidden" name="price" value="<%= toy.getPrice() %>">
+	                           <input type="submit" value="Add to cart">
+	                    </td>
                     </tr>
+                    </form>
                 <%
                 }
                 %>

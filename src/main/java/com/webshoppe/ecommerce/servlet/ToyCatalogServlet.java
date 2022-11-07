@@ -1,7 +1,6 @@
 package com.webshoppe.ecommerce.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -32,32 +31,9 @@ public class ToyCatalogServlet extends HttpServlet {
         response.setContentType("text/html");
 
         final List<Toy> toys = toyCatalogService.getToyCatalog();
-        final StringBuilder stringBuilder = new StringBuilder();
-        if (toys.isEmpty()) {
-            stringBuilder.append("<b>Toy Catalog Empty</b>");
-        } else {
-            stringBuilder.append("<table class='table'>");
-            stringBuilder.append("<thead>");
-            stringBuilder.append("<th scope='col'>ID</th>");
-            stringBuilder.append("<th scope='col'>Name</th>");
-            stringBuilder.append("<th scope='col'>Description</th>");
-            stringBuilder.append("<th scope='col'>Price</th>");
-            stringBuilder.append("</thead>");
-            toys.forEach(e -> {
-                stringBuilder.append("<tr scope='row'>");
-                stringBuilder.append("<td>").append(e.getId()).append("</td>");
-                stringBuilder.append("<td>").append(e.getName()).append("</td>");
-                stringBuilder.append("<td>").append(e.getDescription()).append("</td>");
-                stringBuilder.append("<td>").append(e.getPrice()).append("</td>");
-                stringBuilder.append("</tr>");
-            });
-            stringBuilder.append("</table>");
-        }
-
-        PrintWriter out = response.getWriter();
-        out.println(stringBuilder.toString());
-        out.flush();
-        out.close();
+        request.setAttribute("catalog", toys);
+        final RequestDispatcher dispatcher = request.getRequestDispatcher("/catalog.jsp");
+        dispatcher.forward(request, response);
 
     }
 
