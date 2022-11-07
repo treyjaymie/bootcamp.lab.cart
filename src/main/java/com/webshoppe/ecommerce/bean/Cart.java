@@ -20,15 +20,15 @@ public class Cart {
         if (item == null) {
             throw new IllegalArgumentException("Cart item cannot be null");
         }
-        items.put(item.getId(), item);
+        items.put(item.getId().trim(), item);
     }
 
     public void remove(String id) {
-        CartItem item = items.get(id);
+        CartItem item = items.get(id.trim());
         if (item == null) {
             throw new RuntimeException("Item not found");
         }
-        items.remove(id);
+        items.remove(id.trim());
     }
 
     public Map<String, CartItem> getItems() {

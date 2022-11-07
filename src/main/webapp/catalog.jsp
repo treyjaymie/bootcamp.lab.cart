@@ -35,6 +35,7 @@ List<Toy> catalog = (List<Toy>) request.getAttribute("catalog");
 	                <td>Name</td>
 	                <td>Description</td>
 	                <td>Price</td>
+	                <td>Action</td>
                 </tr>
             </thead>
             <tbody>
