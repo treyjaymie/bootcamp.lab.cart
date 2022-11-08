@@ -42,7 +42,7 @@ List<Toy> catalog = (List<Toy>) request.getAttribute("catalog");
                 <%
                 for(Toy toy: catalog) {
                 %>
-                    <form action="./cart" method="POST">
+                    <form action="./cart?action=add" method="POST">
                     <tr>
 	                    <td><%= toy.getId() %></td>
 	                    <td><%= toy.getName() %></td>
@@ -54,6 +54,7 @@ List<Toy> catalog = (List<Toy>) request.getAttribute("catalog");
 	                           <input type="hidden" name="name" value="<%= toy.getName() %>">
 	                           <input type="hidden" name="description" value="<%= toy.getDescription() %>">
 	                           <input type="hidden" name="price" value="<%= toy.getPrice() %>">
+	                           <input type="hidden" name="operation" value="add">
 	                           <input type="submit" value="Add to cart">
 	                    </td>
                     </tr>

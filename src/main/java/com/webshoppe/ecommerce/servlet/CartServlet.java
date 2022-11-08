@@ -2,6 +2,7 @@ package com.webshoppe.ecommerce.servlet;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,15 +19,30 @@ import com.webshoppe.ecommerce.bean.CartItem;
 public class CartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CartItem cartItem = this.toCartItem(request);
+
 
         HttpSession session = request.getSession(true);
         Cart cart = (Cart)session.getAttribute("cart");
         if (cart == null) {
             cart = new Cart();
         }
-
-        cart.add(cartItem);
+        String operation = request.getParameter("operation");
+        String cartId = request.getParameter("id").trim();
+        if (cart.getItems().containsKey(cartId))
+        {
+        	CartItem selectCartItem = cart.getItems().get(cartId);
+        	if (operation.equals("add")) {
+            	selectCartItem.setQuantity(selectCartItem.getQuantity() + 1);
+        	} else if ( operation.equals("remove") ) {
+        		selectCartItem.setQuantity(selectCartItem.getQuantity() - 1);
+        		if (selectCartItem.getQuantity() <= 0)
+        			cart.remove(cartId);
+        	}
+        }
+        else {
+            CartItem cartItem = this.toCartItem(request);
+        	cart.add(cartItem);
+        }
         session.setAttribute("cart", cart);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/cart.jsp");

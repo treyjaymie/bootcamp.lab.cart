@@ -1,5 +1,6 @@
 package com.webshoppe.ecommerce.bean;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,4 +39,14 @@ public class Cart {
     public List<CartItem> getItemsAsList() {
         return new ArrayList<>(items.values());
     }
+    
+    public BigDecimal getGrandTotal() {
+		BigDecimal grandTotal = new BigDecimal(0);
+		List<CartItem> items = getItemsAsList();
+		for (CartItem item : items) {
+			grandTotal = grandTotal.add(item.getTotalPrice() );
+        }
+		
+		return grandTotal;
+	}
 }

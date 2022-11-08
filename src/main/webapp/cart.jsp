@@ -1,4 +1,5 @@
 
+<%@page import="java.math.BigDecimal"%>
 <%@page import="com.webshoppe.ecommerce.bean.CartItem"%>
 <%@ page language="java" %>
 <%@ page import="java.util.List" %>
@@ -41,12 +42,14 @@ Cart cart = (Cart) session.getAttribute("cart");
                     <td>Price</td>
                     <td>Quantity</td>
                     <td>Total Price</td>
+                    <td>Action</td>
                 </tr>
             </thead>
             <tbody>
                 <%
                 for(CartItem item: cart.getItemsAsList()) {
                 %>
+                	<form action="./cart?action=remove" method="POST">
                     <tr>
                         <td><%= item.getId() %></td>
                         <td><%= item.getName() %></td>
@@ -54,12 +57,20 @@ Cart cart = (Cart) session.getAttribute("cart");
                         <td><%= item.getPrice() %></td>
                         <td><%= item.getQuantity() %></td>
                         <td><%= item.getTotalPrice() %></td>
+                        <td>
+                        	<input type="hidden" name="id" value="<%= item.getId() %>">
+                        	<input type="hidden" name="operation" value="remove">
+                        	<input type="submit" value="Remove">
+                        </td>
                     </tr>
+                    </form>
                 <%
                 }
                 %>
             </tbody>
         </table>
+        <br/>
+        	<h2>Grand total: <%= cart.getGrandTotal() %></h2>
         <%
         }
         %>

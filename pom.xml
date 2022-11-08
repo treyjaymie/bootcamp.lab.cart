@@ -2,7 +2,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.bootcamp</groupId>
-    <artifactId>web.demo4a</artifactId>
+    <artifactId>web.shoppingcart.lab</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
